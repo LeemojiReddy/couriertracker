@@ -28,6 +28,17 @@ session_start();
   <title>Dashboard</title>
   <link rel="stylesheet" href="bootstrap.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-XXXXX-Y', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
   <script src="bootstrap.bundle.js" async></script>
   <style>
@@ -149,6 +160,26 @@ session_start();
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F2286D141T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F2286D141T');
+</script>
+<!-- Hotjar Tracking Code for https://couriertracker.000webhostapp.com/CourierPartner/index.php -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3575087,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
 </head>
 <body>
   <nav class="navbar pb-0" style="background-color: orange;">
@@ -184,6 +215,7 @@ session_start();
 
   <script>
     function trackCourier() {
+        
       var awbNumber = document.getElementById("awbNumber").value;
       var accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXYyLnNoaXByb2NrZXQuaW4vdjEvZXh0ZXJuYWwvYXV0aC9sb2dpbiIsImlhdCI6MTY4OTIyMzY5NCwiZXhwIjoxNjkwMDg3Njk0LCJuYmYiOjE2ODkyMjM2OTQsImp0aSI6IktNR0FWMzh4TTdmaENZUzYiLCJzdWIiOjM3Mzk2MjAsInBydiI6IjA1YmI2NjBmNjdjYWM3NDVmN2IzZGExZWVmMTk3MTk1YTIxMWU2ZDkifQ.I8eB6xj6Q8wXFYfmvW0-wNewtt8eSUfnVkyTxaUPFUk"; // Replace with your actual access token
        // Show loading animation
@@ -198,13 +230,10 @@ session_start();
     `;;
 
       // Make API request to track courier
-      $.ajax(
-        
-        {
+      $.ajax({
         url: "https://cors-anywhere.herokuapp.com/https://apiv2.shiprocket.in/v1/external/courier/track/awb/" + awbNumber,
         type: "GET",
         headers: {
-          "X-Requested-With":"XMLHttpRequest",
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "Accept-Encoding":"gzip, deflate, br",
@@ -215,8 +244,8 @@ session_start();
           "Sec-Fetch-Mode":"cors",
           "Sec-Fetch-Site":"cross-site",
           "Host":"cors-anywhere.herokuapp.com",
-          "Origin":"http://127.0.0.1",
-          "Referer":"http://127.0.0.1/",
+          "Origin":"https://couriertracker.000webhostapp.com",
+          "Referer":"https://couriertracker.000webhostapp.com/",
           "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXYyLnNoaXByb2NrZXQuaW4vdjEvZXh0ZXJuYWwvYXV0aC9sb2dpbiIsImlhdCI6MTY4OTIyMzY5NCwiZXhwIjoxNjkwMDg3Njk0LCJuYmYiOjE2ODkyMjM2OTQsImp0aSI6IktNR0FWMzh4TTdmaENZUzYiLCJzdWIiOjM3Mzk2MjAsInBydiI6IjA1YmI2NjBmNjdjYWM3NDVmN2IzZGExZWVmMTk3MTk1YTIxMWU2ZDkifQ.I8eB6xj6Q8wXFYfmvW0-wNewtt8eSUfnVkyTxaUPFUk"
         },
         success: function(response) {
