@@ -1,9 +1,9 @@
 <?php
 // Database credentials
-$host = '127.0.0.1';
-$dbname = 'couriertracker';
-$user = 'root';
-$password = '';
+$host = 'localhost';
+$dbname = 'id21035407_loginsignup';
+$user = 'id21035407_root';
+$password = 'Leemoji@12345';
 
 // Connect to the database
 try {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <html>
 <head>
-  <title>Homepage</title>
+  <title>Signup</title>
   <link rel="stylesheet" href="bootstrap.css">
   <script src="bootstrap.bundle.js" async></script>
 
@@ -160,8 +160,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         padding: 10px;
         z-index: 1;
       }
-    }
-  </style>
+    }</style>
+ 
+ <!-- Hotjar Tracking Code for https://couriertracker.000webhostapp.com/CourierPartner/index.php -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3575087,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
 </head>
 <body>
   <nav class="navbar" style="background-color: orange;">
