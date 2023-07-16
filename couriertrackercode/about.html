@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin-left:auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  height: 600px;
+  padding: 40px;
+  background-color: #fff;
+}
+
+.heading {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
+  text-align: center;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #444;
+  text-align: center;
+  margin-top:100px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.navbar {
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    
+    .navbar-logo {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .navbar-menu {
+      display: none;
+    }
+    
+    .navbar-menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .navbar-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    .navbar-link {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+.decorated {
+  background: linear-gradient(to right, #00b4db, #0083b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link {
+  color: #00b4db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #0083b0;
+}
+@media screen and (max-width: 768px) {
+      .navbar-menu {
+        display: block;
+      }
+      
+      .navbar-links {
+        display: none;
+      }
+      
+      .navbar-links.active {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: #333;
+        padding: 10px;
+        z-index: 1;
+      }
+    }
+
+</style>
+</head>
+<body>
+    <nav class="navbar" style="background-color: orange;">
+        <div class="navbar-logo" >
+          <img src="logo.png" alt="Logo" width="120px" height="40px">
+        </div>
+        <div class="navbar-menu">
+          <i class="navbar-menu-icon">&#9776;</i>
+        </div>
+        <div class="navbar-links">
+          <a href="index.php" class="navbar-link" >Home</a>
+          <a href="#" class="navbar-link" style="opacity: 0.5;pointer-events: none;">About</a>
+        </div>
+      </nav>
+<div class="container" >
+  <h1 class="heading decorated">Welcome to Your Website</h1>
+  <h2 class="subtitle">About Us</h2>
+  <p class="content">This webpage is Designed for the tracking of the courier from our different Courier Partners</p>
+</div>
+<script>
+  const menuIcon = document.querySelector('.navbar-menu-icon');
+  const navbarLinks = document.querySelector('.navbar-links');
+  
+  menuIcon.addEventListener('click', () => {
+    navbarLinks.classList.toggle('active');
+  });
+  
+</script>
+</body>
+</html>
