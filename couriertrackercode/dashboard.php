@@ -209,15 +209,13 @@ ga('send', 'pageview');
       
     </div>
     <div class="d-flex justify-content-center align-items-center mt-3 mb-0">
+      <a class="btn btn-outline-warning w-25" href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank" id="tepm-acess">Get Temporary Access</a>
       <button class="btn btn-outline-success w-25" id="track-btn" onclick="trackCourier()">Track</button>
     </div>
   <div id="trackingResult"></div>
-
+<div class="fw-bold text-white text-center bg-warning conainer-fluid" style="margin-top:100px;" >@copyrights and designed by Leemoji Reddy Appala</div>
   <script>
     function trackCourier() {
-        
-      var awbNumber = document.getElementById("awbNumber").value;
-      var accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXYyLnNoaXByb2NrZXQuaW4vdjEvZXh0ZXJuYWwvYXV0aC9sb2dpbiIsImlhdCI6MTY4OTIyMzY5NCwiZXhwIjoxNjkwMDg3Njk0LCJuYmYiOjE2ODkyMjM2OTQsImp0aSI6IktNR0FWMzh4TTdmaENZUzYiLCJzdWIiOjM3Mzk2MjAsInBydiI6IjA1YmI2NjBmNjdjYWM3NDVmN2IzZGExZWVmMTk3MTk1YTIxMWU2ZDkifQ.I8eB6xj6Q8wXFYfmvW0-wNewtt8eSUfnVkyTxaUPFUk"; // Replace with your actual access token
        // Show loading animation
       var trackingResult = document.getElementById("trackingResult");
       trackingResult.innerHTML = `
@@ -230,104 +228,110 @@ ga('send', 'pageview');
     `;;
 
       // Make API request to track courier
+      var awbNumber = document.getElementById("awbNumber").value;
+      var accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXYyLnNoaXByb2NrZXQuaW4vdjEvZXh0ZXJuYWwvYXV0aC9sb2dpbiIsImlhdCI6MTY5Nzc4MTMyMywiZXhwIjoxNjk4NjQ1MzIzLCJuYmYiOjE2OTc3ODEzMjMsImp0aSI6IlpRMTRmRVcxNDVLSURqeEoiLCJzdWIiOjQwNjc3MjAsInBydiI6IjA1YmI2NjBmNjdjYWM3NDVmN2IzZGExZWVmMTk3MTk1YTIxMWU2ZDkifQ.0H_MkuZE3kWPmPwMFHHFQDJS6altyV50QFMstblJ2y4"; // Replace with your actual access token
+
       $.ajax({
-        url: "https://cors-anywhere.herokuapp.com/https://apiv2.shiprocket.in/v1/external/courier/track/awb/" + awbNumber,
-        type: "GET",
+        url: "https://cors-anywhere.herokuapp.com/https://apiv2.shiprocket.in/v1/external/courier/track/awbs",
+        type: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Accept-Encoding":"gzip, deflate, br",
-          "Connection":"keep-alive",
-          "Accept-Language":"en-US,en;q=0.9,hi;q=0.8",
-          "Access-Control-Allow-Origin":"*",
-          "Sec-Fetch-Dest":"empty",
-          "Sec-Fetch-Mode":"cors",
-          "Sec-Fetch-Site":"cross-site",
-          "Host":"cors-anywhere.herokuapp.com",
-          "Origin":"https://couriertracker.000webhostapp.com",
-          "Referer":"https://couriertracker.000webhostapp.com/",
-          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaXYyLnNoaXByb2NrZXQuaW4vdjEvZXh0ZXJuYWwvYXV0aC9sb2dpbiIsImlhdCI6MTY4OTIyMzY5NCwiZXhwIjoxNjkwMDg3Njk0LCJuYmYiOjE2ODkyMjM2OTQsImp0aSI6IktNR0FWMzh4TTdmaENZUzYiLCJzdWIiOjM3Mzk2MjAsInBydiI6IjA1YmI2NjBmNjdjYWM3NDVmN2IzZGExZWVmMTk3MTk1YTIxMWU2ZDkifQ.I8eB6xj6Q8wXFYfmvW0-wNewtt8eSUfnVkyTxaUPFUk"
+          "Authorization": "Bearer " + accessToken
         },
+        data: JSON.stringify({
+          awbs: [awbNumber]
+        }),
         success: function(response) {
           // Display tracking information
           var trackingResult = document.getElementById("trackingResult");
-          trackingResult.innerHTML = basicdetails(response)+createTrackingTable(response);
+          trackingResult.innerHTML = basicdetails(response) + createTrackingTable(response);
         },
-        error: function(xhr,status,error,response) {
+        error: function(xhr, status, error) {
           if (xhr.status === 404) {
-            var errorMessage = `<div class="alert text-center mt-5 alert-danger" role="alert">404 Not Found</div>`;
+            var errorMessage = "<div class='alert text-center mt-5 alert-danger' role='alert'>404 Not Found</div>";
+            var trackingResult = document.getElementById("trackingResult");
+            trackingResult.innerHTML = errorMessage;
+          } 
+          else if (xhr.status === 403) {
+            var errorMessage = `<div class='alert text-center mt-5 alert-danger' role='alert'> `+ error +` </div>
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-0"><span style="color:red;"><strong>IF YOU GOT FORBIDDEN THEN MANDIDATORY TO DO THIS:</strong></span><span style="color:orange;margin-left:10px;">Click on the Get Temporary Access</span> and a dialog box will open and</div>
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-0"><span style="color:red;"><span style="color:red;"><strong> click on button <span style="color:green;">Request Temporary acess to Temporary Server</span></strong></span></div>
+            <div class="d-flex justify-content-center align-items-center mt-3 mb-0"><strong><span style="color:orange;">Comeback to the <i style="color:green;">CourierTracker Page</i></span></strong></div>`;
             var trackingResult = document.getElementById("trackingResult");
             trackingResult.innerHTML = errorMessage;
           }
-          else{
-          // Handle errorvar errorResult = document.getElementById("trackingResult");
-          var errorResult = document.getElementById("trackingResult");
-          //errorResult.innerHTML = `
-            //<div class="alert alert-danger" role="alert">
-              //<strong>Error:</strong> ${xhr.responseText}
-            //</div>`;
-            
-            errorResult.innerHTML = `<div class="alert text-center mt-5 alert-danger" role="alert">` + JSON.stringify(error, null, 2) + `</div>`;
+          else {
+            var errorResult = document.getElementById("trackingResult");
+            errorResult.innerHTML = "<div class='alert text-center mt-5 alert-danger' role='alert'>" + error + "</div>";
           }
         }
       });
     }
+
     function basicdetails(data) {
-      if (!data.tracking_data.shipment_track || data.tracking_data.shipment_track.length === 0) {
-        // Handle the case where shipment_track is empty or undefined
-        return `<div class="alert text-center alert-danger mt-5" role="alert">No tracking information found</div>`;
+      var awbNumber = Object.keys(data)[0];
+      var trackingData = data[awbNumber].tracking_data;
+
+      if (!trackingData || !trackingData.shipment_track || trackingData.shipment_track.length === 0) {
+        return "<div class='alert text-center alert-danger mt-5' role='alert'>No tracking information found</div>";
       }
-    var shipment = data.tracking_data.shipment_track[0];
 
-    var table = "<table class='table table-bordered mt-5'><tbody>";
-    table += "<tr><th>AWB Code</th><td>" + shipment.awb_code + "</td></tr>";
-    table += "<tr><th>Shipment ID</th><td>" + shipment.shipment_id + "</td></tr>";
-    table += "<tr><th>Order ID</th><td>" + shipment.order_id + "</td></tr>";
-    table += "<tr><th>Pickup Date</th><td>" + shipment.pickup_date + "</td></tr>";
-    table += "<tr><th>Delivered Date</th><td>" + shipment.delivered_date + "</td></tr>";
-    table += "<tr><th>Current Status</th><td>" + shipment.current_status + "</td></tr>";
-    table += "<tr><th>Origin</th><td>" + shipment.origin + "</td></tr>";
-    table += "<tr><th>Courier Name</th><td>" + shipment.courier_name + "</td></tr>";
-    table += "</tbody></table>";
+      var shipment = trackingData.shipment_track[0];
 
-    return table;
-  }
-  function getStatusColor(status) {
-    if (status.toLowerCase() === "delivered") {
-      return "text-success";
-    } else if (status.toLowerCase() === "in transit") {
-      return "text-warning";
-    } else if (status.toLowerCase() === "picked up") {
-      return "text-success";
-    } else if (status.toLowerCase() === "manifest generated" || status.toLowerCase() === "shipped" || status.toLowerCase() === "out for delivery"){
-      return "text-success";
-    } else {
-      return "";
+      var table = "<table class='table table-bordered mt-5'><tbody>";
+      table += "<tr><th>AWB Code</th><td>" + shipment.awb_code + "</td></tr>";
+      table += "<tr><th>Shipment ID</th><td>" + shipment.shipment_id + "</td></tr>";
+      table += "<tr><th>Order ID</th><td>" + shipment.order_id + "</td></tr>";
+      table += "<tr><th>Pickup Date</th><td>" + shipment.pickup_date + "</td></tr>";
+      table += "<tr><th>Delivered Date</th><td>" + shipment.delivered_date + "</td></tr>";
+      table += "<tr><th>Current Status</th><td>" + shipment.current_status + "</td></tr>";
+      table += "<tr><th>Origin</th><td>" + shipment.origin + "</td></tr>";
+      table += "<tr><th>Courier Name</th><td>" + shipment.courier_name + "</td></tr>";
+      table += "</tbody></table>";
+
+      return table;
     }
-  }
-    function createTrackingTable(data) {
-      if (!data.tracking_data.shipment_track || data.tracking_data.shipment_track.length === 0) {
-        // Handle the case where shipment_track is empty or undefined
+
+    function getStatusColor(status) {
+      if (status.toLowerCase() === "delivered") {
+        return "text-success";
+      } else if (status.toLowerCase() === "in transit") {
+        return "text-warning";
+      } else if (status.toLowerCase() === "picked up") {
+        return "text-success";
+      } else if (status.toLowerCase() === "manifest generated" || status.toLowerCase() === "shipped" || status.toLowerCase() === "out for delivery") {
+        return "text-success";
+      } else {
         return "";
       }
-    var table = "<table class='table table-bordered'><thead><tr><th>Date</th><th>Status</th><th>Activity</th><th>Location</th><th>SR Status</th><th>SR Status Label</th></tr></thead><tbody>";
+    }
 
-    data.tracking_data.shipment_track_activities.forEach(function(activity) {
-      var row = "<tr>";
-      row += "<td>" + activity.date + "</td>";
-      row += "<td class='" + getStatusColor(activity.status) + "'>"  + activity.status + "</td>";
-      row += "<td>" + activity.activity + "</td>";
-      row += "<td>" + activity.location + "</td>";
-      row += "<td>" + activity["sr-status"] + "</td>";
-      row += "<td class='" + getStatusColor(activity["sr-status-label"]) + " fw-bolder'>" + activity["sr-status-label"] + "</td>";
-      row += "</tr>";
-      table += row;
-    });
+    function createTrackingTable(data) {
+      var awbNumber = Object.keys(data)[0];
+      var trackingData = data[awbNumber].tracking_data;
 
-    table += "</tbody></table>";
+      if (!trackingData || !trackingData.shipment_track_activities || trackingData.shipment_track_activities.length === 0) {
+        return "";
+      }
 
-    return table;
-  }
+      var table = "<table class='table table-bordered'><thead><tr><th>Date</th><th>Status</th><th>Activity</th><th>Location</th><th>SR Status</th><th>SR Status Label</th></tr></thead><tbody>";
+
+      trackingData.shipment_track_activities.forEach(function(activity) {
+        var row = "<tr>";
+        row += "<td>" + activity.date + "</td>";
+        row += "<td class='" + getStatusColor(activity.status) + "'>" + activity.status + "</td>";
+        row += "<td>" + activity.activity + "</td>";
+        row += "<td>" + activity.location + "</td>";
+        row += "<td>" + activity["sr-status"] + "</td>";
+        row += "<td class='" + getStatusColor(activity["sr-status-label"]) + " fw-bolder'>" + activity["sr-status-label"] + "</td>";
+        row += "</tr>";
+        table += row;
+      });
+
+      table += "</tbody></table>";
+
+      return table;
+    }
   </script>
  
   
